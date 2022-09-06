@@ -7,22 +7,29 @@ import { StatusSelect } from '../components/StatusSelect'
 export default function Issues() {
   const [labels, setLabels] = useState([])
   const [status, setStatus] = useState('')
+  const [pageNum, setPageNum] = useState(1)
 
   return (
     <div>
       <main>
         <section>
-          <IssuesList labels={labels} status={status} />
+          <IssuesList
+            labels={labels}
+            status={status}
+            pageNum={pageNum}
+            setPageNum={setPageNum}
+          />
         </section>
         <aside>
           <LabelList
             selected={labels}
             toggle={(label) =>
-              setLabels((labels) =>
+              setLabels((labels) => {
                 labels.includes(label)
                   ? labels.filter((current) => current !== label)
                   : labels.concat(label)
-              )
+                setPageNum(1)
+              })
             }
           />
           <h3>Status</h3>
